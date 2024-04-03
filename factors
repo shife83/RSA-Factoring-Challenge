@@ -1,0 +1,35 @@
+#!/usr/bin/python3
+def is_prime(n):
+  """Checks if a number is prime."""
+  if n <= 1:
+    return False
+  for i in range(2, int(n**0.5) + 1):
+    if n % i == 0:
+      return False
+  return True
+
+def factorize(n):
+  """Factors a number into two smaller numbers, or returns None if not factorable."""
+  for i in range(2, int(n**0.5) + 1):
+    if n % i == 0:
+      return i, n // i
+  return None
+
+def main():
+  """Reads numbers from a file, factorizes them, and prints the results."""
+  try:
+    with open(sys.argv[1], "r") as file:
+      for line in file:
+        number = int(line.strip())
+        factors = factorize(number)
+        if factors:
+          p, q = factors
+          print(f"{number}={p}*{q}")
+        else:
+          print(f"{number} is prime")
+  except (FileNotFoundError, ValueError) as e:
+    print(f"Error: {e}")
+
+if __name__ == "__main__":
+  import sys
+  main()
